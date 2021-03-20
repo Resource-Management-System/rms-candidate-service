@@ -32,6 +32,6 @@ public class BusinessUnitService {
             log.error(e.getMessage());
             throw new InternalServiceException("Error retrieving business units", e);
         }
-
     }
+    
 }

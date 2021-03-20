@@ -18,6 +18,7 @@ public class UserMapper {
                 .businessUnitId(user.getBusinessUnitId())
                 .baseLocationY(user.getBaseLocation().getY())
                 .userSpecialism(user.getUserSpecialism())
+                .grade(user.getGrade())
                 .build();
     }
 }

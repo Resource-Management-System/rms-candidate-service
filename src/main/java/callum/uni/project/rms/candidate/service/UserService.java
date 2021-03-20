@@ -10,6 +10,7 @@ import callum.uni.project.rms.candidate.model.target.Candidates;
 import callum.uni.project.rms.candidate.model.target.TargetUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +30,7 @@ public class UserService {
     public void updateUserProjectDetails(Long userId, Long roleId) {
         try {
             userRepository.updateUserCurrentRoleId(userId, roleId);
-        } catch (RuntimeException e) {
+        } catch (HibernateException e) {
             throw new InternalServiceException("Error updating user", e);
         }
     }
@@ -39,7 +40,7 @@ public class UserService {
             List<User> candidates = userRepository.findAllByFullNameContaining(fullName);
 
             return buildCandidates(candidates);
-        } catch (RuntimeException e) {
+        } catch (HibernateException e) {
             throw new InternalServiceException("Error retrieving user", e);
         }
     }
@@ -49,7 +50,7 @@ public class UserService {
             List<User> candidates = userRepository.findAllByBusinessUnitId(businessUnit);
 
             return buildCandidates(candidates);
-        } catch (RuntimeException e) {
+        } catch (HibernateException e) {
             throw new InternalServiceException("Error retrieving user", e);
         }
     }
@@ -60,26 +61,7 @@ public class UserService {
 
             return UserMapper.mapDbModelToTarget(user.orElseThrow(() ->
                     new NotFoundException("Expected user not found")));
-        } catch (RuntimeException e) {
-            throw new InternalServiceException("Error finding user", e);
-        }
-    }
-
-//    public Candidates retrieveShortlistedCandidates(Long roleId) {
-//        try {
-//            List<User> userList = userRepository.retrieveCandidatesFromShortlist(roleId);
-//
-//            return buildCandidates(userList);
-//        } catch (HibernateException e) {
-//            log.error(e.getMessage());
-//            throw new ServiceException("Error retrieving candidates", e);
-//        }
-//    }
-
-    public void updateUserLeaveRole(Long userId) {
-        try {
-            userRepository.updateUserLeaveRole(userId);
-        } catch (RuntimeException e) {
+        } catch (HibernateException e) {
             throw new InternalServiceException("Error finding user", e);
         }
     }

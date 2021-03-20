@@ -44,4 +44,7 @@ public class User {
 
     @Column(name = "business_unit_id")
     private Long businessUnitId;
+
+    @Column(name = "grade")
+    private String grade;
 }

@@ -44,7 +44,7 @@ public class CandidateController {
     
     @PutMapping(value = "/candidate/currentRole")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void setUpdateUserCurrentRole(
+    public void setUserCurrentRole(
             @RequestBody @NonNull UpdateUserCurrentRole updateUserCurrentRole){
         userService.updateUserProjectDetails(updateUserCurrentRole.getUserId(),
                 updateUserCurrentRole.getRoleId());
